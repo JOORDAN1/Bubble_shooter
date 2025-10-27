@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c71cfa9c5294b2e83a0d544133ad8a, type: 3}
+  m_Name: BubblesDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::BubblesDatabase
+  bubbleTypes:
+  - {fileID: 11400000, guid: b0f8533913a94456db4ff189394aaa57, type: 2}
+  - {fileID: 11400000, guid: 6d9f15bbe0b9f4b14901b6a5b498c62b, type: 2}
+  - {fileID: 11400000, guid: 0c7299a402ad943b7bb119d63ee0fdb0, type: 2}
+  - {fileID: 11400000, guid: 7be0975accf1541429a0cc08f190f6e2, type: 2}
+  - {fileID: 11400000, guid: 232017d3dc1ac4576bbbbb80c829f165, type: 2}
+  - {fileID: 11400000, guid: b6dea05b50f9144829777b37f53b34d0, type: 2}
