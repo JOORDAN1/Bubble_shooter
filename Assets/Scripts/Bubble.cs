@@ -5,15 +5,19 @@ public class Bubble : MonoBehaviour
 {
 
     public BubbleTypeData data;
-
+    public SpriteRenderer spriteRenderer;
     public int column;
     public int row;
+
     public Board board;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
+        
        board = GameObject.FindWithTag("Board").GetComponent<Board>();
+       spriteRenderer = GetComponent<SpriteRenderer>();
+       spriteRenderer.sprite = data.bubbleSprite;
     }
 
     

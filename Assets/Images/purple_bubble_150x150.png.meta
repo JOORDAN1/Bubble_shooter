@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 897d08b82de4e4749be2db2fe74082a1
+guid: 3fc26987ecbc54770aed521c31a03714
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -386686134584356762
-    second: green_bubble_200x200_0
+      213: 6537232697976110151
+    second: purple_bubble_150x150_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: green_bubble_200x200_0
+      name: purple_bubble_150x150_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 56
-        width: 85
-        height: 85
+        x: 42
+        y: 41
+        width: 64
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 660d784620732aaf0800000000000000
-      internalID: -386686134584356762
+      spriteID: 74c3fe8c08ae8ba50800000000000000
+      internalID: 6537232697976110151
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      green_bubble_200x200_0: -386686134584356762
+      purple_bubble_150x150_0: 6537232697976110151
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BlueBubble
   m_EditorClassIdentifier: Assembly-CSharp::BubbleTypeData
   bubbleName: BlueBubble
-  bubbleSprite: {fileID: 6680659952274404319, guid: 8a2baa25aee004c319d0157e8ef0ebbc, type: 3}
+  bubbleSprite: {fileID: -8351198932072403623, guid: 05d4e3431d73248d8b97585340b2f3f6, type: 3}

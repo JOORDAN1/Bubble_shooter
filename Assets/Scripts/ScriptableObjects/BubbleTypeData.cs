@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BubbleTypeData", menuName = "Scriptable Objects/BubbleTypeData")]
