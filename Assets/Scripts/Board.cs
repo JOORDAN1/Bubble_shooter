@@ -5,48 +5,62 @@ public class Board : MonoBehaviour
     public GameObject bubblePrefab;
     public BubblesDatabase  bubblesDatabase;
 
-    public int rows = 6;
-    public int columns = 8;
-
     public float bubbleSpacing = 0.1f;
-
-    private float bubbleHeight;
-    private float bubbleWidth;
+    
+    public int width = 19;
+    public int height = 12;
+    [SerializeField] private BubblesDatabase gemDatabase;
+    public GridSlot[,] gridSlots;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        SetupBubbleSize();
-        GenerateBoard();
+        
+        gridSlots = new GridSlot[width, height];
+        FillingBoard();
     }
 
-    void SetupBubbleSize()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        bubbleHeight  = spriteRenderer.bounds.size.y + bubbleSpacing;
-        bubbleWidth = spriteRenderer.bounds.size.x + bubbleSpacing;
-    }
 
-    void GenerateBoard()
+    private void FillingBoard()
     {
-        for (int row = 0; row < rows; row++)
+        GridSlot[] allGridSlots = GetComponentsInChildren<GridSlot>();
+
+        for (int i = 0; i < allGridSlots.Length; i++)
         {
-            for (int column = 0; column < columns; column++)
+            GridSlot slot = allGridSlots[i];
+            int col = slot.column;
+            int row = slot.row;
+            
+            if (col < 0 || col >= width || row < 0 || row >= height)
             {
-                float xOffset;
-                if (row % 2 == 1)
-                {
-                    xOffset = bubbleWidth / 2f;
-                }
-                else
-                {
-                    xOffset = 0f;
-                }
-                
-                Vector2 spawnPos = new Vector2(
-                    transform.position.x + column * bubbleWidth +  xOffset,
-                    transform.position.y + row * bubbleHeight
-                    );
+                Debug.LogError($"Slot ({col},{row}) is OUTSIDE the board bounds!");
+                continue;
             }
+
+            gridSlots[col, row] = slot;
+
+            // Pomijamy sloty z pierwszych 3 rzędów
+            if (row < 3)
+                continue;
+
+            // Pomijamy sloty niepasujące do heksagonalnego układu
+            if ((col % 2 == 0 && row % 2 != 0) || (col % 2 != 0 && row % 2 == 0))
+                continue;
+
+            Bubble bubble = slot.GetComponentInChildren<Bubble>(true);
+            slot.currentBubble = bubble;
+
+            if (bubble == null)
+            {
+                Debug.LogWarning($"Missing Bubble on Slot ({col}, {row})");
+                continue;
+            }
+
+            BubbleTypeData randomType = bubblesDatabase.GetRandomBubbleType();
+            bubble.Init(randomType);
+            bubble.column = col;
+            bubble.row = row;
         }
     }
+    
+    
 }

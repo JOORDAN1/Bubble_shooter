@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GreenBubble
   m_EditorClassIdentifier: Assembly-CSharp::BubbleTypeData
   bubbleName: GreenBubble
-  bubbleSprite: {fileID: -386686134584356762, guid: 897d08b82de4e4749be2db2fe74082a1, type: 3}
+  sprite: {fileID: -2877818865560006585, guid: a42fdbd6ee3764be1a5252f4521f4fad, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RedBubble
   m_EditorClassIdentifier: Assembly-CSharp::BubbleTypeData
   bubbleName: RedBubble
-  bubbleSprite: {fileID: -5034854885684837157, guid: 23915b06ac58c4ae8890f2c66bf3ebdd, type: 3}
+  sprite: {fileID: -1596727521247094636, guid: e5e6099f94317476299384448f587b15, type: 3}

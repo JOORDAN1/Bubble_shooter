@@ -5,5 +5,6 @@ using UnityEngine;
 public class BubbleTypeData : ScriptableObject
 {
     public string bubbleName;
-    public Sprite bubbleSprite;
+    public Sprite sprite;
+    
 }
