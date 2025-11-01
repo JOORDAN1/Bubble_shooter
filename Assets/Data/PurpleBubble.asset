@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PurpleBubble
   m_EditorClassIdentifier: Assembly-CSharp::BubbleTypeData
   bubbleName: PurpleBubble
-  bubbleSprite: {fileID: 3646433181397260556, guid: 58212351f0d094838b42d91d397abc41, type: 3}
+  sprite: {fileID: 6537232697976110151, guid: 3fc26987ecbc54770aed521c31a03714, type: 3}

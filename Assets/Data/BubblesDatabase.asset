@@ -15,7 +15,6 @@ MonoBehaviour:
   bubbleTypes:
   - {fileID: 11400000, guid: b0f8533913a94456db4ff189394aaa57, type: 2}
   - {fileID: 11400000, guid: 6d9f15bbe0b9f4b14901b6a5b498c62b, type: 2}
-  - {fileID: 11400000, guid: 0c7299a402ad943b7bb119d63ee0fdb0, type: 2}
   - {fileID: 11400000, guid: 7be0975accf1541429a0cc08f190f6e2, type: 2}
   - {fileID: 11400000, guid: 232017d3dc1ac4576bbbbb80c829f165, type: 2}
   - {fileID: 11400000, guid: b6dea05b50f9144829777b37f53b34d0, type: 2}
