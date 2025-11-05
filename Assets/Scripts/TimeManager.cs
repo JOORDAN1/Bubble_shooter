@@ -13,3 +13,4 @@ public class TimeManager : MonoBehaviour
         timerText.text = Mathf.CeilToInt(timeRemaining).ToString();
     }
 }
+
