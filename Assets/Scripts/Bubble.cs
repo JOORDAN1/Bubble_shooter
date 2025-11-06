@@ -12,11 +12,13 @@ public class Bubble : MonoBehaviour
     public Board board;
     public bool hasSettled = false;
     public bool isMatched = false;
+    public MatchController matchController;
 
     private void Awake()
     {
         
        board = GameObject.FindWithTag("Board").GetComponent<Board>();
+       matchController = GameObject.FindWithTag("MatchController").GetComponent<MatchController>();
        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
     }
     
@@ -50,7 +52,10 @@ public class Bubble : MonoBehaviour
             column = nearestSlot.column;
             row = nearestSlot.row;
             
+            
+            matchController.CheckMatches(this);
             board.OnBubbleSettled();
+            
         }
         
         GetComponent<Collider2D>().isTrigger = false;

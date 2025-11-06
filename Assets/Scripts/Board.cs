@@ -147,6 +147,7 @@ public class Board : MonoBehaviour
     {
         shooter.SpawnBubble();
     }
-    
+
+
     
 }
