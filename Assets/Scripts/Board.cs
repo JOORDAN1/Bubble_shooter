@@ -5,6 +5,7 @@ public class Board : MonoBehaviour
     
     public static Board Instance;
     public Shooter shooter;
+    private MatchController matchController;
 
     public GameObject bubblePrefab;
     public BubblesDatabase  bubblesDatabase;
@@ -22,6 +23,7 @@ public class Board : MonoBehaviour
     private void Awake()
     {
         shooter = GameObject.FindWithTag("Shooter").GetComponent<Shooter>();
+        matchController = GameObject.FindWithTag("MatchController").GetComponent<MatchController>();
         Instance = this;
         gridSlots = new GridSlot[width, height];
         FillingBoard();
@@ -146,6 +148,7 @@ public class Board : MonoBehaviour
     public void OnBubbleSettled()
     {
         shooter.SpawnBubble();
+        matchController.ClearMatches();
     }
 
 

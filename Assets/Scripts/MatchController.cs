@@ -5,6 +5,7 @@ using UnityEngine;
 public class MatchController : MonoBehaviour
 {
     private Board board;
+    private List<Bubble> bubblesToClear = new List<Bubble>();
     
     private void Awake()
     {
@@ -21,49 +22,106 @@ public class MatchController : MonoBehaviour
         return board.gridSlots[column, row]?.currentBubble;
     }
     
-    public void CheckMatches(Bubble bubbleToCheck)
-    {
-        List<Bubble> matchedBubbles = new List<Bubble>();
-        String currentBubbleName = bubbleToCheck.data.bubbleName;
-        int currentBubbleColumn = bubbleToCheck.column;
-        int currentBubbleRow = bubbleToCheck.row;
-        
-        List<Bubble> bubblesToCheck = new List<Bubble>();
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn - 2, currentBubbleRow].currentBubble);
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn + 2, currentBubbleRow].currentBubble);
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn - 1, currentBubbleRow + 1].currentBubble);
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn + 1, currentBubbleRow + 1].currentBubble);
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn + 1, currentBubbleRow - 1].currentBubble);
-        // bubblesToCheck.Add(board.gridSlots[currentBubbleColumn - 1, currentBubbleRow - 1].currentBubble);
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 2, currentBubbleRow));
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 2, currentBubbleRow));
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow + 1));
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow + 1));
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow - 1));
-        bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow - 1));
-        
+    // public void LookForMatches(Bubble bubbleToCheck)
+    // {
+    //     List<Bubble> matchedBubbles = new List<Bubble>();
+    //     String currentBubbleName = bubbleToCheck.data.bubbleName;
+    //     int currentBubbleColumn = bubbleToCheck.column;
+    //     int currentBubbleRow = bubbleToCheck.row;
+    //     
+    //     List<Bubble> bubblesToCheck = new List<Bubble>();
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 2, currentBubbleRow));
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 2, currentBubbleRow));
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow + 1));
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow + 1));
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow - 1));
+    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow - 1));
+    //     
+    //
+    //     for (int i = 0; i < bubblesToCheck.Count; i++)
+    //     {
+    //         if (bubblesToCheck[i] == null || bubblesToCheck[i].isMatched)
+    //         {
+    //             continue;
+    //         }
+    //         if (bubblesToCheck[i].data.bubbleName == currentBubbleName)
+    //         {
+    //             bubblesToCheck[i].MatchBubble();
+    //             matchedBubbles.Add(bubblesToCheck[i]);
+    //             bubblesToClear.Add(bubblesToCheck[i]);
+    //         }
+    //     }
+    //
+    //     for (int i = 0; i < matchedBubbles.Count; i++)
+    //     {
+    //         LookForMatches(matchedBubbles[i]);
+    //     }
+    // }
 
-        for (int i = 0; i < bubblesToCheck.Count; i++)
+    public void FloodFillMatch(Bubble bubble, string targetBubbleName, List<Bubble> matches)
+    {
+        if (bubble == null || bubble.isMatched || matches.Contains(bubble)) return;
+        
+        if(bubble.data.bubbleName != targetBubbleName) return;
+
+        matches.Add(bubble);
+        
+        int col =  bubble.column;
+        int row =  bubble.row;
+        
+        FloodFillMatch(GetBubbleAt(col - 2, row), targetBubbleName, matches);
+        FloodFillMatch(GetBubbleAt(col + 2, row), targetBubbleName, matches);
+        FloodFillMatch(GetBubbleAt(col - 1, row + 1), targetBubbleName, matches);
+        FloodFillMatch(GetBubbleAt(col + 1, row + 1), targetBubbleName, matches);
+        FloodFillMatch(GetBubbleAt(col + 1, row - 1), targetBubbleName, matches);
+        FloodFillMatch(GetBubbleAt(col - 1, row - 1), targetBubbleName, matches);
+        
+    }
+
+    public void LookForMatches(Bubble startBubble)
+    {
+        List<Bubble> matchedGroup = new List<Bubble>();
+        string targetBubbleName = startBubble.data.bubbleName;
+        
+        FloodFillMatch(startBubble, targetBubbleName, matchedGroup);
+
+        if (matchedGroup.Count >= 3)
         {
-            if (bubblesToCheck[i] == null || bubblesToCheck[i].isMatched)
+            for (int i = 0; i < matchedGroup.Count; i++)
             {
-                continue;
-            }
-            if (bubblesToCheck[i].data.bubbleName == currentBubbleName)
-            {
-                bubblesToCheck[i].MatchBubble();
-                matchedBubbles.Add(bubblesToCheck[i]);
+                matchedGroup[i].MatchBubble();
+                bubblesToClear.Add(matchedGroup[i]);
             }
         }
-
-        for (int i = 0; i < matchedBubbles.Count; i++)
+        else
         {
-            CheckMatches(matchedBubbles[i]);
+            return;
         }
     }
 
-   
-    
+    public void ClearMatches()
+    {
+        if (bubblesToClear.Count > 2)
+        {
+            for (int i = 0; i < bubblesToClear.Count; i++)
+            {
+                bubblesToClear[i].spriteRenderer.color = Color.black;
+            }
+            
+            bubblesToClear.Clear();
+        }
+
+        else
+        {
+            for (int i = 0; i < bubblesToClear.Count; i++)
+            {
+                bubblesToClear[i].isMatched = false;
+            }
+            
+            bubblesToClear.Clear();
+        }
+        
+    }
     
 
 }

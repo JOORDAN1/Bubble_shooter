@@ -53,7 +53,7 @@ public class Bubble : MonoBehaviour
             row = nearestSlot.row;
             
             
-            matchController.CheckMatches(this);
+            matchController.LookForMatches(this);
             board.OnBubbleSettled();
             
         }
