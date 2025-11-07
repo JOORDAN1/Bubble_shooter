@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -16,7 +17,8 @@ public class Board : MonoBehaviour
     public int height = 13;
     [SerializeField] private BubblesDatabase gemDatabase;
     public GridSlot[,] gridSlots;
-
+    public List<Bubble> bubblesToUse = new List<Bubble>();
+    
     public GameObject left;
     public GameObject right;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -150,7 +152,11 @@ public class Board : MonoBehaviour
         shooter.SpawnBubble();
         matchController.ClearMatches();
     }
-
-
+    
+    public void RecycleBubble(Bubble bubble)
+    {
+        bubble.ClearBubble();
+        bubblesToUse.Add(bubble);
+    }
     
 }

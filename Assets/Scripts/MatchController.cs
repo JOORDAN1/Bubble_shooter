@@ -101,26 +101,23 @@ public class MatchController : MonoBehaviour
 
     public void ClearMatches()
     {
-        if (bubblesToClear.Count > 2)
+        if (bubblesToClear.Count >= 3)
         {
-            for (int i = 0; i < bubblesToClear.Count; i++)
+            foreach (Bubble b in bubblesToClear)
             {
-                bubblesToClear[i].spriteRenderer.color = Color.black;
+                board.gridSlots[b.column, b.row].currentBubble = null;
+                board.RecycleBubble(b);
             }
-            
-            bubblesToClear.Clear();
         }
-
         else
         {
-            for (int i = 0; i < bubblesToClear.Count; i++)
+            foreach (Bubble b in bubblesToClear)
             {
-                bubblesToClear[i].isMatched = false;
+                b.isMatched = false;
             }
-            
-            bubblesToClear.Clear();
         }
-        
+
+        bubblesToClear.Clear();
     }
     
 

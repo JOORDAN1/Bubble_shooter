@@ -14,6 +14,7 @@ public class Bubble : MonoBehaviour
     public bool isMatched = false;
     public MatchController matchController;
 
+
     private void Awake()
     {
         
@@ -99,8 +100,27 @@ public class Bubble : MonoBehaviour
     public void MatchBubble()
     {
         isMatched = true;
-        spriteRenderer.color = Color.black;
+    }
+
+    public void ClearBubble()
+    {
+        data = null;
+        isMatched = false;
+        spriteRenderer.sprite = null;
+        spriteRenderer.color = Color.white;
+        hasSettled = false;
+        isFlying = false;
+
+        // ❗ wyłącz kolizje i fizykę
+        GetComponent<Collider2D>().isTrigger = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        // ❗ ukryj bąbla poza ekranem
+        transform.position = new Vector3(0f, -10f, 0f);
+        
     }
     
+
+   
     
 }
