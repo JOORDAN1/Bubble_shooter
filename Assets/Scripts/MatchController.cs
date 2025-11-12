@@ -22,42 +22,6 @@ public class MatchController : MonoBehaviour
         return board.gridSlots[column, row]?.currentBubble;
     }
     
-    // public void LookForMatches(Bubble bubbleToCheck)
-    // {
-    //     List<Bubble> matchedBubbles = new List<Bubble>();
-    //     String currentBubbleName = bubbleToCheck.data.bubbleName;
-    //     int currentBubbleColumn = bubbleToCheck.column;
-    //     int currentBubbleRow = bubbleToCheck.row;
-    //     
-    //     List<Bubble> bubblesToCheck = new List<Bubble>();
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 2, currentBubbleRow));
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 2, currentBubbleRow));
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow + 1));
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow + 1));
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn + 1, currentBubbleRow - 1));
-    //     bubblesToCheck.Add(GetBubbleAt(currentBubbleColumn - 1, currentBubbleRow - 1));
-    //     
-    //
-    //     for (int i = 0; i < bubblesToCheck.Count; i++)
-    //     {
-    //         if (bubblesToCheck[i] == null || bubblesToCheck[i].isMatched)
-    //         {
-    //             continue;
-    //         }
-    //         if (bubblesToCheck[i].data.bubbleName == currentBubbleName)
-    //         {
-    //             bubblesToCheck[i].MatchBubble();
-    //             matchedBubbles.Add(bubblesToCheck[i]);
-    //             bubblesToClear.Add(bubblesToCheck[i]);
-    //         }
-    //     }
-    //
-    //     for (int i = 0; i < matchedBubbles.Count; i++)
-    //     {
-    //         LookForMatches(matchedBubbles[i]);
-    //     }
-    // }
-
     public void FloodFillMatch(Bubble bubble, string targetBubbleName, List<Bubble> matches)
     {
         if (bubble == null || bubble.isMatched || matches.Contains(bubble)) return;
@@ -108,6 +72,7 @@ public class MatchController : MonoBehaviour
                 board.gridSlots[b.column, b.row].currentBubble = null;
                 board.RecycleBubble(b);
             }
+            
         }
         else
         {
@@ -119,6 +84,63 @@ public class MatchController : MonoBehaviour
 
         bubblesToClear.Clear();
     }
+
+    public void ClearDisconnectedBubbles()
+    {
+        List<Bubble> allBubbles = new List<Bubble>();
+
+        for (int col = 0; col < board.width; col++)
+        {
+            for (int row = 0; row < board.height; row++)
+            {
+                Bubble bubble = board.gridSlots[col, row]?.currentBubble;
+                if (bubble != null)
+                {
+                    allBubbles.Add(bubble);
+                }
+            }
+        }
+
+        for (int i = 0; i < allBubbles.Count; i++)
+        {
+            HashSet<Bubble> visited = new HashSet<Bubble>();
+            if (!IsConnectedToTop(allBubbles[i], visited))
+            {
+                for (int j = 0; j < visited.Count; j++)
+                {
+                    foreach (var b in visited)
+                    {
+                        b.ClearBubble();
+                        board.gridSlots[b.column, b.row].currentBubble = null;
+                        board.bubblesToUse.Add(b);
+                    }
+                }
+            }
+        }
+    }
+    
+
+    private bool IsConnectedToTop(Bubble bubble, HashSet<Bubble> visited)
+    {
+        if(bubble == null || visited.Contains(bubble)) return false;
+        
+        visited.Add(bubble);
+        
+        if (bubble.row == board.height - 1)
+            return true;
+        
+        int col = bubble.column;
+        int row = bubble.row;
+        return 
+            IsConnectedToTop(GetBubbleAt(col - 2, row), visited) ||
+            IsConnectedToTop(GetBubbleAt(col + 2, row), visited) ||
+            IsConnectedToTop(GetBubbleAt(col - 1, row + 1), visited) ||
+            IsConnectedToTop(GetBubbleAt(col + 1, row + 1), visited) ||
+            IsConnectedToTop(GetBubbleAt(col + 1, row - 1), visited) ||
+            IsConnectedToTop(GetBubbleAt(col - 1, row - 1), visited);
+    }
+    
+
     
 
 }

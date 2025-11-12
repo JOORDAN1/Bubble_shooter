@@ -12,5 +12,7 @@ public class TimeManager : MonoBehaviour
         timeRemaining += Time.deltaTime;
         timerText.text = Mathf.CeilToInt(timeRemaining).ToString();
     }
+    
+    
 }
 

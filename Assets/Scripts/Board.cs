@@ -17,6 +17,7 @@ public class Board : MonoBehaviour
     public int height = 13;
     [SerializeField] private BubblesDatabase gemDatabase;
     public GridSlot[,] gridSlots;
+    public List<Bubble> allBubbles = new List<Bubble>();
     public List<Bubble> bubblesToUse = new List<Bubble>();
     
     public GameObject left;
@@ -151,6 +152,7 @@ public class Board : MonoBehaviour
     {
         shooter.SpawnBubble();
         matchController.ClearMatches();
+        matchController.ClearDisconnectedBubbles();
     }
     
     public void RecycleBubble(Bubble bubble)
