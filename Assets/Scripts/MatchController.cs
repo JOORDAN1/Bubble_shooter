@@ -88,7 +88,7 @@ public class MatchController : MonoBehaviour
     public void ClearDisconnectedBubbles()
     {
         List<Bubble> allBubbles = new List<Bubble>();
-
+    
         for (int col = 0; col < board.width; col++)
         {
             for (int row = 0; row < board.height; row++)
@@ -100,7 +100,7 @@ public class MatchController : MonoBehaviour
                 }
             }
         }
-
+    
         for (int i = 0; i < allBubbles.Count; i++)
         {
             HashSet<Bubble> visited = new HashSet<Bubble>();
@@ -110,9 +110,12 @@ public class MatchController : MonoBehaviour
                 {
                     foreach (var b in visited)
                     {
-                        b.ClearBubble();
-                        board.gridSlots[b.column, b.row].currentBubble = null;
-                        board.bubblesToUse.Add(b);
+                        if (!b.cleared)
+                        {
+                            b.ClearBubble();
+                            board.gridSlots[b.column, b.row].currentBubble = null;
+                            board.bubblesToUse.Add(b);
+                        }
                     }
                 }
             }

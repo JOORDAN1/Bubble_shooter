@@ -22,6 +22,8 @@ public class Board : MonoBehaviour
     
     public GameObject left;
     public GameObject right;
+    public GameObject top;
+    public GameObject bottom;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -99,53 +101,71 @@ public class Board : MonoBehaviour
 
     public GridSlot FindAvalivableLeftSlot()
     {
-        GridSlot left = null;
+        List<(int col, int row)> preferredSlots = new List<(int, int)>
+        {
+            (0, 12),
+            (1, 11),
+            (0, 10),
+            (1, 9),
+            (0, 8),
+            (1, 7),
+            (0, 6),
+            (1, 5),
+            (0, 4),
+            (1, 3),
+            (0, 2),
+            (1, 1),
+            (0, 0),
+        };
 
-        if (gridSlots[1, 3].currentBubble == null)
+        foreach (var (col, row) in preferredSlots)
         {
-            left = gridSlots[1, 3];
-        }
-        else if (gridSlots[0, 2].currentBubble == null)
-        {
-            left = gridSlots[0, 2];
-        }
-        else if (gridSlots[1, 1].currentBubble == null)
-        {
-            left = gridSlots[1, 1];
-        }
-        else
-        {
-            left = gridSlots[0, 0];
+            if (col >= 0 && col < width && row >= 0 && row < height)
+            {
+                GridSlot slot = gridSlots[col, row];
+                if (slot != null && slot.currentBubble == null)
+                {
+                    return slot;
+                }
+            }
         }
 
-
-        return left;
+        return null;
     }
     
     
     public GridSlot FindAvalivableRightSlot()
     {
-        GridSlot right = null;
+        List<(int col, int row)> preferredSlots = new List<(int, int)>
+        {
+            (18, 12),
+            (17, 11),
+            (18, 10),
+            (17, 9),
+            (18, 8),
+            (17, 7),
+            (18, 6),
+            (17, 5),
+            (18, 4),
+            (17, 3),
+            (18, 2),
+            (17, 1),
+            (18, 0),
+        };
 
-        if (gridSlots[17, 3].currentBubble == null)
+        foreach (var (col, row) in preferredSlots)
         {
-            right = gridSlots[17, 3];
-        }
-        else if (gridSlots[18, 2].currentBubble == null)
-        {
-            right = gridSlots[18, 2];
-        }
-        else if (gridSlots[17, 1].currentBubble == null)
-        {
-            right = gridSlots[17, 1];
-        }
-        else
-        {
-            right = gridSlots[18, 0];
+            if (col >= 0 && col < width && row >= 0 && row < height)
+            {
+                GridSlot slot = gridSlots[col, row];
+                if (slot != null && slot.currentBubble == null)
+                {
+                    return slot;
+                }
+            }
         }
 
-
-        return right;
+        return null;
     }
     
     public void OnBubbleSettled()
@@ -160,5 +180,6 @@ public class Board : MonoBehaviour
         bubble.ClearBubble();
         bubblesToUse.Add(bubble);
     }
+    
     
 }

@@ -7,6 +7,7 @@ TagManager:
   - Board
   - Shooter
   - MatchController
+  - TimeManager
   layers:
   - Default
   - TransparentFX
