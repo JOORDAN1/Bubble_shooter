@@ -26,14 +26,22 @@ public class Shooter : MonoBehaviour
 
     public void SpawnBubble()
     {
-        
-        GameObject go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
-        currentBubble = go.GetComponent<Bubble>();
+        GameObject go;
 
-        if (currentBubble != null)
+        if (Board.Instance.bubblesToUse.Count > 0)
         {
-            currentBubble.Init(bubblesDatabase.GetRandomBubbleType());
+            Bubble recycled = Board.Instance.bubblesToUse[0];
+            Board.Instance.bubblesToUse.RemoveAt(0);
+            go = recycled.gameObject;
+            go.transform.position = transform.position;
         }
+        else
+        {
+            go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
+        }
+
+        currentBubble = go.GetComponent<Bubble>();
+        currentBubble.Init(bubblesDatabase.GetRandomBubbleType());
     }
     
     void ShootToward(Vector3 worldTarget)

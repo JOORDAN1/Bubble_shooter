@@ -1107,6 +1107,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2735997355413093142, guid: 0168307d8937e47de9ad2342bbde3d76, type: 3}
   m_PrefabInstance: {fileID: 68874031}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &78896666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78896667}
+  - component: {fileID: 78896668}
+  m_Layer: 0
+  m_Name: MatchController
+  m_TagString: MatchController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &78896667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78896666}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25307, y: 0.78307, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &78896668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78896666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1a239fa8b674bc18b039701440b817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MatchController
 --- !u!1001 &79538064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6817,7 +6861,7 @@ Camera:
   far clip plane: 1000
   field of view: 40
   orthographic: 1
-  orthographic size: 5.61
+  orthographic size: 5.699915
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8902,7 +8946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715891918}
   m_Layer: 0
-  m_Name: Down
+  m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15856,6 +15900,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2735997355413093142, guid: 0168307d8937e47de9ad2342bbde3d76, type: 3}
   m_PrefabInstance: {fileID: 1242310673}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1244782288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5419836335874738964, guid: 0168307d8937e47de9ad2342bbde3d76, type: 3}
+  m_PrefabInstance: {fileID: 708670283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1261794073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18373,8 +18422,12 @@ MonoBehaviour:
   width: 19
   height: 13
   gemDatabase: {fileID: 0}
+  allBubbles: []
+  bubblesToUse: []
   left: {fileID: 796460493}
   right: {fileID: 1436637235}
+  top: {fileID: 1244782288}
+  bottom: {fileID: 715891917}
 --- !u!4 &1484807874
 Transform:
   m_ObjectHideFlags: 0
@@ -24242,7 +24295,7 @@ GameObject:
   - component: {fileID: 2096421065}
   m_Layer: 0
   m_Name: TimeManager
-  m_TagString: Untagged
+  m_TagString: TimeManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24276,6 +24329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   timeRemaining: 0
   timerText: {fileID: 43928854}
+  endGame: 0
 --- !u!1001 &2119453586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25254,3 +25308,4 @@ SceneRoots:
   - {fileID: 1592409484}
   - {fileID: 2096421064}
   - {fileID: 362458649}
+  - {fileID: 78896667}
