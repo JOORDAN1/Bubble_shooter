@@ -15,6 +15,7 @@ public class Bubble : MonoBehaviour
     public MatchController matchController;
     public bool cleared = false;
     public TimeManager timeManager;
+ 
 
 
     private void Awake()
@@ -64,16 +65,16 @@ public class Bubble : MonoBehaviour
             column = nearestSlot.column;
             row = nearestSlot.row;
 
-            if (nearestSlot.row == 0)
+            matchController.LookForMatches(this);
+
+            if (nearestSlot.row == 0 && !isMatched)
             {
                 timeManager.LostGame();
             }
             else
             {
-                matchController.LookForMatches(this);
                 board.OnBubbleSettled();
             }
-            
             
         }
         

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,9 +40,33 @@ public class Shooter : MonoBehaviour
         {
             go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
         }
+        // List<string> allTypes = Board.Instance.CheckBubbleTypes();
+        //
+        // BubbleTypeData newdata = bubblesDatabase.GetRandomBubbleType();
+        //
+        // while (!allTypes.Contains(newdata.bubbleName))
+        // {
+        //     newdata = bubblesDatabase.GetRandomBubbleType();
+        // }
+        
+        List<string> allTypes = Board.Instance.CheckBubbleTypes();
+        List<BubbleTypeData> availableTypes = bubblesDatabase.bubbleTypes.FindAll(type => allTypes.Contains(type.bubbleName));
 
-        currentBubble = go.GetComponent<Bubble>();
-        currentBubble.Init(bubblesDatabase.GetRandomBubbleType());
+        if (availableTypes.Count == 0)
+        {
+            // Gra skończona, albo trzeba wygenerować nowy układ
+            Debug.Log("Brak dostępnych bąbelków — wygrana lub nowy level");
+            return;
+        }
+        else
+        {
+            BubbleTypeData newdata = availableTypes[UnityEngine.Random.Range(0, availableTypes.Count)];
+
+            currentBubble = go.GetComponent<Bubble>();
+            currentBubble.Init(newdata);
+        }
+        
+        
     }
     
     void ShootToward(Vector3 worldTarget)

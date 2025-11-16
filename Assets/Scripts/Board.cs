@@ -180,6 +180,28 @@ public class Board : MonoBehaviour
         bubble.ClearBubble();
         bubblesToUse.Add(bubble);
     }
+
+    public List<string> CheckBubbleTypes()
+    {
+        List<string> allTypes = new List<string>();
+    
+        for (int col = 0; col < width; col++)
+        {
+            for (int row = 0; row < height; row++)
+            {
+                Bubble bubble = gridSlots[col, row]?.currentBubble;
+                if (bubble != null)
+                {
+                    if (!allTypes.Contains(bubble.data.bubbleName))
+                    {
+                        allTypes.Add(bubble.data.bubbleName);
+                    }
+                }
+            }
+        }
+
+        return allTypes;
+    }
     
     
 }
